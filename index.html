@@ -37,10 +37,10 @@
 
 	     <div id= "randomnumber"></div> 
 
-	     	<div id= "score">Wins:</div>
-		      <div id= "wins"></div>
-		     <div id= "score">Losses:</div>
-	     <div id= "losses"></div>
+	     	<div id= "wins"></div>
+		      
+		     <div id= "losses"></div>
+	    
 	  
 
 	  <div class="panel-body">
@@ -86,33 +86,35 @@
       
       	// showing variables in html
 		$("#randomnumber").html(randomNumber);
+    	
+    	$("#wins").html("Wins :" + wins);  
 
-    	$("#usernumber").append(userPoints);
-
-    	// $("#wins").html(wins);   //dont know if to use .html .append .appendTo .data .value . attr .text
-
-    	// $("#losses").html(losses);
+    	 $("#losses").html("Losses: " + losses);
 
 
     	// on click functions
 		$("#rupee1").click(function() {
 			userGuess(rupee1);
 			rupeeSound.play();
+			userPoints += rupee1;
 		});
 
 		$("#rupee2").click(function() {
 			userGuess(rupee2);
 			rupeeSound.play();
+			userPoints += rupee2;
 		});
 
 		$("#rupee3").click(function() {
 			userGuess(rupee3);
 			rupeeSound.play();
+			userPoints += rupee3;
 		});
 
 		$("#rupee4").click(function() {
 			userGuess(rupee4);
 			rupeeSound.play();
+			userPoints += rupee4;
 		});
 
       	console.log("Rupee1 " + rupee1);
@@ -125,7 +127,7 @@
       function setupGame () {
 
     	
-	   	randomNumber = Math.floor((Math.random() * 120) + 19);
+	   	randomNumber = Math.floor((Math.random() * 102) + 19);
       	rupee1 = Math.floor((Math.random() * 12) + 1);
       	rupee2 = Math.floor((Math.random() * 12) + 1);
       	rupee3 = Math.floor((Math.random() * 12) + 1);
@@ -138,8 +140,8 @@
       
       function userGuess(rupee) {
 
-				userPoints += rupee;
-				$("#usernumber").append(userPoints);
+				
+				$("#usernumber").html(userPoints);
 				console.log("UserPoints " + userPoints);
 
 
