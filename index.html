@@ -35,12 +35,12 @@
 	     </div>
 
 
-	     <div id="randomnumber"><p id="randomnumber"></p></div> 
+	     <div id= "randomnumber"></div> 
 
-	     	<div id="score">Wins:</div>
-		      <div id="wins"></div>
-		     <div id="score">Losses:</div>
-	     <div id="losses"></div>
+	     	<div id= "score">Wins:</div>
+		      <div id= "wins"></div>
+		     <div id= "score">Losses:</div>
+	     <div id= "losses"></div>
 	  
 
 	  <div class="panel-body">
@@ -53,8 +53,9 @@
 	  
 	  </div>
 
-		  <div id="usernumber">Your points:</div>
-		      <div id="points"></div>
+	 <div id="points"></div>
+		  <div id="usernumber"></div>
+		     
 
 
 
@@ -67,27 +68,33 @@
     $(document).ready(function() {
 
 
-      	var randomNumber = i = 1; i <= 12; i++;
-      	var rupee1 = i = 19; i <= 120; i++;
-      	var rupee2 = i = 19; i <= 120; i++;
-      	var rupee3 = i = 19; i <= 120; i++;
-      	var rupee4 = i = 19; i <= 120; i++;
+      	var randomNumber = Math.floor((Math.random() * 102) + 19);
+      	var rupee1 = Math.floor((Math.random() * 12) + 1);
+      	var rupee2 = Math.floor((Math.random() * 12) + 1);
+      	var rupee3 = Math.floor((Math.random() * 12) + 1);
+      	var rupee4 = Math.floor((Math.random() * 12) + 1);
       	var wins = 0;
       	var losses = 0;
       	var userPoints = 0;
       	var rupeeSound = document.createElement("audio");
       rupeeSound.setAttribute("src", "http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Get_Rupee.wav");
+      var endSound = document.createElement("audio");
+      endSound.setAttribute("src", "http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Link_Die.wav");
+       var winSound = document.createElement("audio");
+      winSound.setAttribute("src", "http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Fanfare.wav");
 
+      
+      	// showing variables in html
 		$("#randomnumber").html(randomNumber);
 
-    	$("#points").html(userPoints);
+    	$("#usernumber").append(userPoints);
 
-    	$("#wins").html(wins);
+    	// $("#wins").html(wins);   //dont know if to use .html .append .appendTo .data .value . attr .text
 
-    	$("#losses").html(losses);
+    	// $("#losses").html(losses);
 
 
-
+    	// on click functions
 		$("#rupee1").click(function() {
 			userGuess(rupee1);
 			rupeeSound.play();
@@ -113,42 +120,45 @@
       	console.log("Rupee3 " + rupee3);
       	console.log("Rupee4 " + rupee4);
       	console.log("Random Number " + randomNumber);
+      	
 
       function setupGame () {
 
     	
-	   	 randomNumber = i = 1; i <= 12; i++;
-      	 rupee1 = i = 19; i <= 120; i++;
-      	 rupee2 = i = 19; i <= 120; i++;
-      	 rupee3 = i = 19; i <= 120; i++;
-      	 rupee4 = i = 19; i <= 120; i++;
-      	 wins = 0;
-      	 losses = 0;
-      	 userPoints = 0;
+	   	randomNumber = Math.floor((Math.random() * 120) + 19);
+      	rupee1 = Math.floor((Math.random() * 12) + 1);
+      	rupee2 = Math.floor((Math.random() * 12) + 1);
+      	rupee3 = Math.floor((Math.random() * 12) + 1);
+      	rupee4 = Math.floor((Math.random() * 12) + 1);
+      	 
+      	userPoints = 0;
+
 
       }
       
       function userGuess(rupee) {
 
 				userPoints += rupee;
+				$("#usernumber").append(userPoints);
+				console.log("UserPoints " + userPoints);
 
 
 				if (userPoints === randomNumber) {
-
-      				alert("Great you got all the rupees! You win!");
-
-      				var snd1 = new Audio("http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Fanfare.wav");
+					
+					winSound.play();
+      				alert("Great, you got all the rupees! You win!");
       				wins ++;
+      				$("#wins").html(wins);
       				setupGame();
 
       			}
 
       			 else if (userPoints >= randomNumber) {
-
+					
+					endSound.play();
      		 		alert("Too bad, you lose!");
-
-					var snd2 = new Audio("http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Link_Die.wav");
-     		 		losses ++;
+					losses ++;
+					$("#losses").html(losses);
      		 		setupGame();
      			}
 
