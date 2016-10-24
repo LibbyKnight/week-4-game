@@ -35,7 +35,7 @@
 	     </div>
 
 
-	     <div id="randomnumber"><p></p></div> 
+	     <div id="randomnumber"><p id="randomnumber"></p></div> 
 
 	     	<div id="score">Wins:</div>
 		      <div id="wins"></div>
@@ -45,7 +45,7 @@
 
 	  <div class="panel-body">
 
-	   <img src="http://i22.photobucket.com/albums/b321/libelle_/7156296686_0411443428_o.png" id= "rupee1" width= "50px">
+	   <img src="http://i22.photobucket.com/albums/b321/libelle_/7156296686_0411443428_o.png" id= "rupee1" width="50px">
 	   <img src="http://i22.photobucket.com/albums/b321/libelle_/7156296778_5a602ca7fb_o.png" id= "rupee2" width="50px">
 	   <img src="http://i22.photobucket.com/albums/b321/libelle_/7156296820_4cd07efabb_o.png" id= "rupee3" width="50px">
 	   <img src="http://i22.photobucket.com/albums/b321/libelle_/7156296748_68ea0fd2bb_o.png" id= "rupee4" width="50px">
@@ -67,46 +67,94 @@
     $(document).ready(function() {
 
 
-      	var randomNumber = "";
-      	var rupeeValue = [];
+      	var randomNumber = i = 1; i <= 12; i++;
+      	var rupee1 = i = 19; i <= 120; i++;
+      	var rupee2 = i = 19; i <= 120; i++;
+      	var rupee3 = i = 19; i <= 120; i++;
+      	var rupee4 = i = 19; i <= 120; i++;
       	var wins = 0;
       	var losses = 0;
       	var userPoints = 0;
+      	var rupeeSound = document.createElement("audio");
+      rupeeSound.setAttribute("src", "http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Get_Rupee.wav");
 
+		$("#randomnumber").html(randomNumber);
+
+    	$("#points").html(userPoints);
+
+    	$("#wins").html(wins);
+
+    	$("#losses").html(losses);
+
+
+
+		$("#rupee1").click(function() {
+			userGuess(rupee1);
+			rupeeSound.play();
+		});
+
+		$("#rupee2").click(function() {
+			userGuess(rupee2);
+			rupeeSound.play();
+		});
+
+		$("#rupee3").click(function() {
+			userGuess(rupee3);
+			rupeeSound.play();
+		});
+
+		$("#rupee4").click(function() {
+			userGuess(rupee4);
+			rupeeSound.play();
+		});
+
+      	console.log("Rupee1 " + rupee1);
+      	console.log("Rupee2 " + rupee2);
+      	console.log("Rupee3 " + rupee3);
+      	console.log("Rupee4 " + rupee4);
+      	console.log("Random Number " + randomNumber);
 
       function setupGame () {
 
-    	$("#randomnumber").append(randomNumber);
+    	
+	   	 randomNumber = i = 1; i <= 12; i++;
+      	 rupee1 = i = 19; i <= 120; i++;
+      	 rupee2 = i = 19; i <= 120; i++;
+      	 rupee3 = i = 19; i <= 120; i++;
+      	 rupee4 = i = 19; i <= 120; i++;
+      	 wins = 0;
+      	 losses = 0;
+      	 userPoints = 0;
 
-		for (var i = 19; i <= 120; i++) {
-    	randomNumber.push(i);
-		
-		}
+      }
+      
+      function userGuess(rupee) {
 
-		for (var i = 1; i <= 12; i++) {
-    	rupeeValue.push(i);
-		
-		}
-
-		rupeeValue.attr("data-rupeeValue", randomNumber[i]);
-		console.log(randomNumber);
-
-      	
-      	crystalValue = [];
-      	userPoints = 0;
+				userPoints += rupee;
 
 
-      	function userGuess (){
+				if (userPoints === randomNumber) {
 
-      		$("#rupee1").on("click", function() {
+      				alert("Great you got all the rupees! You win!");
 
-      		rupeeValue = $(this).data("rupeeValue");
-      			console.log(rupeeValue);
+      				var snd1 = new Audio("http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Fanfare.wav");
+      				wins ++;
+      				setupGame();
 
+      			}
 
-   		})
-      }};
-    });
+      			 else if (userPoints >= randomNumber) {
+
+     		 		alert("Too bad, you lose!");
+
+					var snd2 = new Audio("http://noproblo.dayjo.org/ZeldaSounds/LOZ/LOZ_Link_Die.wav");
+     		 		losses ++;
+     		 		setupGame();
+     			}
+
+     		}
+
+     	});
    
 
     	
